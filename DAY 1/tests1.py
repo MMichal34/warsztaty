@@ -1,3 +1,3 @@
-class test1:
-    def test1_1(self, result):
-        assert result == 1
+class test_listy:
+    def test_1(result):
+        assert result == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

@@ -66,7 +66,6 @@ class MazeSolver:
             self.running = False
             return
 
-        self.save_image()
         i_cnt = 0
 
         cell = np.copy(self.start_pos)
@@ -160,10 +159,8 @@ class MazeSolver:
             if i_cnt > 50:
                 i_cnt = 0
                 pygame.display.flip()
-                self.save_image()
 
         pygame.display.flip()
-        self.save_image()
         i_cnt = 0
 
         # retract to starting position to show the route.
@@ -193,13 +190,10 @@ class MazeSolver:
             if i_cnt > 50:
                 i_cnt = 0
                 pygame.display.flip()
-                self.save_image()
 
         self.blocks[cell[0], cell[1]] = 4  # mark starting cell as route
         # ensure display is updated
         pygame.display.flip()
-
-        self.save_image()
 
     def draw_cell(self, cell, previous, color):
         # draw passage from cell to neighbor. As these are always adjacent can min/max be used.
@@ -332,14 +326,6 @@ class MazeSolver:
         self.screen.blit(screen_copy, (0, 0))
         pygame.display.flip()
 
-    def save_image(self):
-        # save maze as a png image. Use the first available number to avoid overwriting a previous image.
-        for file_nr in range(1, 1000):
-            file_name = "Mazegif_" + ("00" + str(file_nr))[-3:] + ".png"
-            if not exists(file_name):
-                pygame.image.save(self.screen, file_name)
-                break
-
     def pause(self):
         # wait for exit (window close or ESC key) or continue (space bar) or other user controls
 
@@ -361,9 +347,6 @@ class MazeSolver:
                     pausing = False
                 if event.key == pygame.K_f:
                     self.toggle_fullscreen()
-                if event.key == pygame.K_s:
-                    # save screen as png image
-                    self.save_image()
                 if event.key == pygame.K_i:
                     self.toggle_info_display()
                 if event.key == pygame.K_m:
